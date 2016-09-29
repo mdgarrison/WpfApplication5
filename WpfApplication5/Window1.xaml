@@ -1,0 +1,9 @@
+﻿<Window x:Class="WpfApplication5.Window1"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:UserControl1="clr-namespace:UserControls.UserControl1"
+    Title="Window1" Height="600" Width="600">
+    <Grid>
+        <UserControl1:RadarControl/>
+    </Grid>
+</Window>

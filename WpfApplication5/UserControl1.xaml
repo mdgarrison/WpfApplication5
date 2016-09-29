@@ -1,0 +1,102 @@
+﻿<UserControl x:Class="UserControls.UserControl1.RadarControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:UserControl1="clr-namespace:UserControls.UserControl1">
+    <UserControl.Resources>
+        <XmlDataProvider x:Key="EnemyList" Source="EnemyList.xml"/>
+        <SolidColorBrush x:Key="FluoroGreen" Color="#42ff00" />
+        <ControlTemplate x:Key="RadarTemplate" TargetType="ItemsControl">
+            <Grid>
+                <Grid.Resources>
+                    <RadialGradientBrush x:Key="SweepingLineBrush" GradientOrigin="0,1" RadiusX="1" RadiusY="1">
+                        <GradientStop Offset="0" Color="{Binding Color, Source={StaticResource FluoroGreen}}" />
+                        <GradientStop Offset="1" Color="Transparent" />
+                    </RadialGradientBrush>
+                </Grid.Resources>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <!--
+                <Image Width="64" Source="Resources/sub.png" Grid.Row="0" Grid.Column="0" Grid.RowSpan="2" Grid.ColumnSpan="2" Opacity="0.75" />
+                -->
+                <UserControl1:MarkersElement Foreground="{StaticResource FluoroGreen}" DeltaAngle="45" Grid.Row="0" Grid.Column="0" Grid.RowSpan="2" Grid.ColumnSpan="2" Opacity="0.75" />
+                <Path x:Name="SweepLine" Fill="{StaticResource SweepingLineBrush}" StrokeThickness="0" Stretch="Uniform" HorizontalAlignment="Left" Grid.Row="0" Grid.Column="1" RenderTransformOrigin="0,1" Data="M 0,0 L 0,1 L 0.382683432,0.0761204675 S 0.25,0 0,0 Z">
+                    <Path.RenderTransform>
+                        <RotateTransform />
+                    </Path.RenderTransform>
+                </Path>
+                <ItemsPresenter Grid.Row="0" Grid.Column="0" Grid.RowSpan="2" Grid.ColumnSpan="2" />
+            </Grid>
+            <ControlTemplate.Triggers>
+                <EventTrigger RoutedEvent="FrameworkElement.Loaded">
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <DoubleAnimation From="0" To="359.99" Duration="0:0:5" Storyboard.TargetName="SweepLine" Storyboard.TargetProperty="RenderTransform.(RotateTransform.Angle)" RepeatBehavior="Forever" />
+                            <DoubleAnimationUsingKeyFrames Duration="0:0:2.5" Storyboard.TargetName="SweepLine" Storyboard.TargetProperty="Opacity" RepeatBehavior="Forever">
+                                <LinearDoubleKeyFrame KeyTime="0%" Value="0.1" />
+                                <LinearDoubleKeyFrame KeyTime="50%" Value="1" />
+                                <LinearDoubleKeyFrame KeyTime="100%" Value="0.1" />
+                            </DoubleAnimationUsingKeyFrames>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+            </ControlTemplate.Triggers>
+        </ControlTemplate>
+        <DataTemplate x:Key="EnemyTemplate" DataType="Enemy">
+            <Image Source="{Binding Type}" Stretch="Fill" />
+        </DataTemplate>
+        <ControlTemplate x:Key="ListBoxItemTemplate" TargetType="ListBoxItem">
+            <Grid Width="30" Height="30">
+                <Canvas x:Name="Inspect" Visibility="Collapsed" IsHitTestVisible="False">
+                    <Image Source="Resources/InspectBubble.png" Width="150" />
+                    <StackPanel Margin="20" Width="110">
+                        <TextBlock Foreground="White" FontWeight="Bold" Text="{Binding Location, StringFormat=({0})}" HorizontalAlignment="Center" />
+                        <TextBlock Foreground="White" FontStyle="Italic" Text="{Binding Angle, StringFormat=Angle: {0:F2}°}" />
+                    </StackPanel>
+                    <Canvas.RenderTransform>
+                        <TranslateTransform X="-75" Y="-110" />
+                    </Canvas.RenderTransform>
+                </Canvas>
+
+                <ContentPresenter RenderTransformOrigin="0.5,0.5">
+                    <ContentPresenter.RenderTransform>
+                        <RotateTransform Angle="{Binding Angle}" />
+                    </ContentPresenter.RenderTransform>
+                </ContentPresenter>
+                <Grid.RenderTransform>
+                    <TranslateTransform X="{Binding Location.X}" Y="{Binding Location.Y}" />
+                </Grid.RenderTransform>
+            </Grid>
+            <ControlTemplate.Triggers>
+                <Trigger Property="IsSelected" Value="True">
+                    <Setter Property="Visibility" Value="Visible" TargetName="Inspect" />
+                    <Setter Property="Panel.ZIndex" Value="1" />
+                </Trigger>
+            </ControlTemplate.Triggers>
+        </ControlTemplate>
+        <Style TargetType="ListBoxItem">
+            <Setter Property="Template" Value="{StaticResource ListBoxItemTemplate}" />
+        </Style>
+
+        <Style TargetType="ListBox">
+            <Setter Property="Template" Value="{StaticResource RadarTemplate}" />
+            <Setter Property="Width" Value="500" />
+            <Setter Property="Height" Value="500" />
+            <Setter Property="ItemsPanel">
+                <Setter.Value>
+                    <ItemsPanelTemplate>
+                        <Canvas IsItemsHost="True" />
+                    </ItemsPanelTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </UserControl.Resources>
+    <Grid Background="Black">
+        <ListBox x:Name="_enemies" ItemsSource="{Binding Source={StaticResource EnemyList}, XPath=Enemy}" ItemTemplate="{StaticResource EnemyTemplate}" />
+    </Grid>
+</UserControl>

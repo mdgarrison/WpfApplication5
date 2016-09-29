@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<EnemyList>
+  <Enemy>
+    <LocationX>200</LocationX>
+    <LocationY>350</LocationY>
+    <VelocityX>3</VelocityX>
+    <VelocityY>4</VelocityY>
+    <Type>Resources/ship.png</Type>
+  </Enemy>
+  <Enemy>
+    <LocationX>10</LocationX>
+    <LocationY>50</LocationY>
+    <VelocityX>2</VelocityX>
+    <VelocityY>4</VelocityY>
+    <Type>Resources/plane.png</Type>
+  </Enemy>
+  <Enemy>
+    <LocationX>150</LocationX>
+    <LocationY>50</LocationY>
+    <VelocityX>3</VelocityX>
+    <VelocityY>4</VelocityY>
+    <Type>Resources/plane.png</Type>
+  </Enemy>
+  <Enemy>
+    <LocationX>50</LocationX>
+    <LocationY>300</LocationY>
+    <VelocityX>3</VelocityX>
+    <VelocityY>-4</VelocityY>
+    <Type>Resources/ship.png</Type>
+  </Enemy>
+  <Enemy>
+    <LocationX>20</LocationX>
+    <LocationY>400</LocationY>
+    <VelocityX>3</VelocityX>
+    <VelocityY>-4</VelocityY>
+    <Type>Resources/sub.png</Type>
+  </Enemy>
+</EnemyList>
