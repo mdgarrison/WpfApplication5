@@ -40,8 +40,7 @@ namespace UserControls.UserControl1
                 dc.DrawEllipse(null, _pen, center, radius, radius);
 
                 // Text
-                FormattedText text = new FormattedText("" + i * DeltaAngle, CultureInfo.InvariantCulture,
-                                                       FlowDirection.LeftToRight, new Typeface("Verdana"), 12, Foreground);
+                FormattedText text = new FormattedText("" + i * DeltaAngle, CultureInfo.InvariantCulture, FlowDirection.LeftToRight, new Typeface("Verdana"), 12, Foreground);
                 Point p2 = GetPoint(angle, text);
                 p2.X -= text.Width / 2;
                 p2.Y -= text.Height / 2;
