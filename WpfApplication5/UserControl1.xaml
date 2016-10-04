@@ -53,7 +53,6 @@
         <ControlTemplate x:Key="ListBoxItemTemplate" TargetType="ListBoxItem">
             <Grid Width="30" Height="30">
                 <Canvas x:Name="Inspect" Visibility="Collapsed" IsHitTestVisible="False">
-                    <Image Source="Resources/InspectBubble.png" Width="150" />
                     <StackPanel Margin="20" Width="110">
                         <TextBlock Foreground="White" FontWeight="Bold" Text="{Binding Location, StringFormat=({0})}" HorizontalAlignment="Center" />
                         <TextBlock Foreground="White" FontStyle="Italic" Text="{Binding Angle, StringFormat=Angle: {0:F2}°}" />

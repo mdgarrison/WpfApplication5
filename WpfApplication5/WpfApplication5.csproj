@@ -118,10 +118,7 @@
     <Resource Include="EnemyList.xml" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\InspectBubble.png" />
-    <Resource Include="Resources\plane.png" />
-    <Resource Include="Resources\ship.png" />
-    <Resource Include="Resources\sub.png" />
+    <Folder Include="Resources\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
